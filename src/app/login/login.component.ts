@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {environment} from '../../environments/environment';
+
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,7 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   login() {
-    this.http.post('http://localhost:5009/api/auth/login', {
+    this.http.post(`${environment.apiUrl}/api/auth/login`, {
       username: this.username,
       password: this.password
     }).subscribe({
@@ -74,7 +76,7 @@ export class LoginComponent {
     this.registerUsername = '';
     this.registerPassword = '';
 
-    this.http.post('http://localhost:5009/api/auth/register', {
+    this.http.post(`${environment.apiUrl}/api/auth/register`, {
       username: newUser,
       password: newPass
     }).subscribe({

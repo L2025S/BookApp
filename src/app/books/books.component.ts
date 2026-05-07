@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';   // Impor
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 interface Book {
   id: number;
@@ -41,7 +42,7 @@ export class BooksComponent implements OnInit {
   }
 
   loadBooks() {
-    this.http.get<Book[]>('http://localhost:5009/api/books', this.getHeaders())
+    this.http.get<Book[]>(`${environment.apiUrl}/api/books`, this.getHeaders())
       .subscribe({
         next: (data) => {
           console.log('✅ Books received:', data);
@@ -60,7 +61,7 @@ export class BooksComponent implements OnInit {
       return;
     }
     if (this.isEditMode) {
-      this.http.put(`http://localhost:5009/api/books/${this.currentBook.id}`, this.currentBook, this.getHeaders())
+      this.http.put(`${environment.apiUrl}/api/books/${this.currentBook.id}`, this.currentBook, this.getHeaders())
         .subscribe({
           next: () => {
             alert('✅ Book updated successfully!');
@@ -73,7 +74,7 @@ export class BooksComponent implements OnInit {
           }
         });
     } else {
-      this.http.post('http://localhost:5009/api/books', this.currentBook, this.getHeaders())
+      this.http.post(`${environment.apiUrl}/api/books`, this.currentBook, this.getHeaders())
         .subscribe({
           next: () => {
             alert('✅ Book added successfully!');
@@ -96,7 +97,7 @@ export class BooksComponent implements OnInit {
 
   deleteBook(id: number) {
     if (confirm('Are you sure you want to delete this book?')) {
-      this.http.delete(`http://localhost:5009/api/books/${id}`, this.getHeaders())
+      this.http.delete(`${environment.apiUrl}/api/books/${id}`, this.getHeaders())
         .subscribe({
           next: () => {
             alert('🗑️ Book deleted successfully');

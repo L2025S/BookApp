@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 interface Quote {
   id: number;
@@ -39,7 +40,7 @@ export class QuotesComponent implements OnInit {
   }
 
   loadQuotes() {
-    this.http.get<Quote[]>('http://localhost:5009/api/quotes', this.getHeaders())
+    this.http.get<Quote[]>(`${environment.apiUrl}/api/quotes`, this.getHeaders())
       .subscribe({
         next: (data) => {
           this.quotes = data;
@@ -57,7 +58,7 @@ export class QuotesComponent implements OnInit {
 
     if (this.editingQuote) {
       // Update existing quote
-      this.http.put(`http://localhost:5009/api/quotes/${this.currentQuote.id}`, this.currentQuote, this.getHeaders())
+      this.http.put(`${environment.apiUrl}/api/quotes/${this.currentQuote.id}`, this.currentQuote, this.getHeaders())
         .subscribe({
           next: () => {
             alert('✅ Quote updated successfully!');
@@ -71,7 +72,7 @@ export class QuotesComponent implements OnInit {
         });
     } else {
       // Create new quote
-      this.http.post('http://localhost:5009/api/quotes', this.currentQuote, this.getHeaders())
+      this.http.post(`${environment.apiUrl}/api/quotes`, this.currentQuote, this.getHeaders())
         .subscribe({
           next: () => {
             alert('✅ Quote added successfully!');
@@ -100,7 +101,7 @@ export class QuotesComponent implements OnInit {
 
   deleteQuote(id: number) {
     if (confirm('Are you sure you want to delete this quote?')) {
-      this.http.delete(`http://localhost:5009/api/quotes/${id}`, this.getHeaders())
+      this.http.delete(`${environment.apiUrl}/api/quotes/${id}`, this.getHeaders())
         .subscribe({
           next: () => {
             alert('🗑️ Quote deleted successfully');
