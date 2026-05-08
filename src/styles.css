@@ -179,4 +179,45 @@ body.bg-dark .form-control {
   }
 }
 
+/* ============================ Newly Added ======================================== */
+
+/* Ensure core navigation links are always visible and neatly arranged */
+.core-nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.core-nav-links .nav-link {
+  white-space: nowrap;      /* Prevent text wrapping on small screens */
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+/* Responsive adjustments for small mobile devices (width <= 576px) */
+@media (max-width: 576px) {
+  /* Allow the top bar to wrap elements vertically */
+  .container .d-flex {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  /* Core links (Books & Quotes) move to the second row, centered */
+  .core-nav-links {
+    order: 2;               /* Place after brand and buttons */
+    width: 100%;
+    justify-content: center;
+    margin: 0.5rem 0 0 0 !important;
+  }
+
+  /* Action buttons (theme + logout) stay on the first row */
+  .action-buttons {
+    order: 1;
+  }
+
+  /* Brand stays on the first row (left side) */
+  .navbar-brand {
+    order: 0;
+  }
+}
 
